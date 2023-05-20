@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class BienvenidoAlCurso{
+public class MiNombre{
   public static void (String args []){
     Scanner scan = new Scanner(System.in);
     String name;
