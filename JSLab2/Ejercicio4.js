@@ -1,34 +1,57 @@
-document.addEventListener("DOMContentLoaded", function () {
-  var ingresoButton = document.getElementById("envioUrl");
-  ingresoButton.addEventListener("click", getMeetCode);
+
+window.addEventListener("keydown", (e)=>{
+  if(e.keyCode === 13){
+    ejecucion(e);
+  }
 });
 
-function getMeetCode() {
+document.addEventListener("DOMContentLoaded", function () {
+  var ingresoButton = document.getElementById("envioUrl");
+  ingresoButton.addEventListener("click", recibirUrl);
+});
+
+function ejecucion(){
+  var ingresoButton = document.getElementById("envioUrl");
+  ingresoButton.addEventListener("click", recibirUrl);
+}
+
+function recibirUrl() {
   var meetUrlPorDefecto = document.getElementById("meetUrl");
 
-  var meetUrl = meetUrlPorDefecto.value.trim();
+  var urlSinEspacios = meetUrlPorDefecto.value.trim();
 
-  if (extractMeetCode(meetUrl) != null) {
-    var meetCode = extractMeetCode(meetUrl);
+  if (extraerCodigo(urlSinEspacios) != null) {
+    var meetCode = extraerCodigo(urlSinEspacios);
     document.getElementById("meetCodigo").innerHTML = "Código de la sesión: " + meetCode;
   }
   else {
-    document.getElementById("meetCodigo").innerHTML = "No se encontró un código de sesión válido en el URL proporcionado.";
+    document.getElementById("meetCodigo").innerHTML = "ERROR: La url ingresada o el codigo no es valido";
   }
 
 }
 
-function extractMeetCode(url) {
-  var urlWithoutProtocol = url.replace(/^(https?:\/\/)?(www\.)?/i, "");
+function extraerCodigo(url) {
+  var urlSinProtocolos = url.replace(/^(https?:\/\/)?/i, "");
+  
+  if((/^meet\.google\.com\/([\w-]+)$/i).test(urlSinProtocolos)){
+    var extraccionCodigo = urlSinProtocolos.match(/\/([\w-]+)/);
 
-  var meetCodeWithDashes = urlWithoutProtocol.match(/\/([\w-]+)/);
-
-  if (meetCodeWithDashes != null) {
-    var meetCode = meetCodeWithDashes[1];
-    var meetCodeWithoutDashes = meetCode.replace(/-/g, "");
-    return meetCodeWithoutDashes;
+    if (extraccionCodigo != null) {
+      var codigoConGuiones = extraccionCodigo[1];
+      if((/^[a-z]{3}-[a-z]{4}-[a-z]{3}$/).test(codigoConGuiones)){
+        var codigo = codigoConGuiones.replace(/-/g, "");
+        return codigo;
+      }
+      else{
+        return null;
+      }
+        
+    }
+    else {
+      return null;
+    }
   }
-  else {
+  else{
     return null;
   }
 }
