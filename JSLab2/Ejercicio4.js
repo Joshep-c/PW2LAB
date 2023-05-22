@@ -1,8 +1,14 @@
+//Si el evento click se realiza en el botoon al presionarlo la function recibirUtl(), iniciara
 document.getElementById("envioUrl").addEventListener("click", recibirUrl);
-document.addEventListener("keyup", ejecucion);
 
+//Si se decide presionar la tecla enter despues de terminar el ingreso de la url
+//Primero se validara en la function ejecucion si la tecla es enter mediante el KeyCode
+//Despues, recien se ejecutara recibirUrl().
+document.addEventListener("keyup", ejecucion);
 function ejecucion(event){
   const teclaPresionada = event.keyCode;
+
+  //Validacion de teclado
   if(teclaPresionada === 13){
     recibirUrl();
   }
@@ -10,15 +16,23 @@ function ejecucion(event){
   
 
 function recibirUrl() {
+  //Se recibe el valor tal cual de la cadena ingresada, sea cual sea
   var meetUrlPorDefecto = document.getElementById("meetUrl");
 
+  //Se procede a borrar espacios antes y despues de la cadena, asi como tambien saltos de linea
   var urlSinEspacios = meetUrlPorDefecto.value.trim();
 
+  //Se inicia la function extraerCodigo() con el argumento urlSinEspacios
+  //Se usa dicha function tambien para verificar si la url y el codigo dentro de esta cumplen con los estandares
   if (extraerCodigo(urlSinEspacios) != null) {
+    //Se obtiene el codigo como tal dentro de la variable meetCode
     var meetCode = extraerCodigo(urlSinEspacios);
+
+    //Se procede a introducir la cadena de texto y el codigo del url encontrado
     document.getElementById("meetCodigo").innerHTML = "Código de la sesión: " + meetCode;
   }
   else {
+    //Se lanza un ERROR, si no se han cumplido ninguno de los estandares, url o codigo correcto
     document.getElementById("meetCodigo").innerHTML = "ERROR: La url ingresada o el codigo no es valido";
   }
 
