@@ -21,27 +21,42 @@ class Picture:
 
     def horizontalMirror(self):
         """Devuelve el espejo horizontal de la imagen"""
-        mirrored_image = []
+        horizontal = []
         for row in self.img[::-1]:
-            mirrored_image.append(row)
-        return mirrored_image
+            horizontal.append(row)
+        return horizontal
 
     def negative(self):
         """Devuelve un negativo de la imagen"""
-        return Picture(None)
+        negative_self = []
+        for row in self.img:
+            value_color = ""
+            for value in row:
+                value_color += self._invColor(value)
+            negative_self.append(value_color)
+
+        return negative_self
 
     def join(self, p):
         """Devuelve una nueva figura poniendo la figura del argumento 
         al lado derecho de la figura actual"""
-        return Picture(None)
+        union_self = []
+        for iterator in range(len(self.img)):
+            union_self.append(self.img[iterator].extends(p.img[iterator]))
+
+        return union_self
 
     def up(self, p):
-        return Picture(None)
+        up_self = self.img.extends(p.img)
+
+        return up_self
 
     def under(self, p):
         """Devuelve una nueva figura poniendo la figura p sobre la
         figura actual"""
-        return Picture(None)
+        under_self = p.img.extends(self.img)
+        
+        return under_self
   
     def horizontalRepeat(self, n):
         """Devuelve una nueva figura repitiendo la figura actual al costado

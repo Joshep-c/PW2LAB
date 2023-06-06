@@ -1,4 +1,6 @@
 from interpreter import draw
 from chessPictures import *
 
-draw(KNIGHT)
+picture = Picture(KNIGHT)
+
+draw(picture.verticalMirror())
