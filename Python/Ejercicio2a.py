@@ -1,8 +1,7 @@
 from interpreter import draw
 from chessPictures import *
 
-fil = knight
-fil1 = king
-fil2 = fil.rotate()
+fil = knight.join(knight.negative())
+fil2 = fil.verticalMirror()
 
-draw(fil.join(fil2))
+draw(fil.up(fil2))
