@@ -35,39 +35,55 @@ class Picture:
                 value_color += self._invColor(value)
             negative_self.append(value_color)
 
-        return negative_self
+        return Picture(negative_self)
 
     def join(self, p):
         """Devuelve una nueva figura poniendo la figura del argumento 
         al lado derecho de la figura actual"""
         union_self = []
         for iterator in range(len(self.img)):
-            union_self.append(self.img[iterator].extends(p.img[iterator]))
-
-        return union_self
+            union_self.append(self.img[iterator] + (p.img[iterator]))
+            
+        return Picture(union_self)
 
     def up(self, p):
-        up_self = self.img.extends(p.img)
-
-        return up_self
+        up_picture = p.img + self.img
+        return Picture(up_picture)
 
     def under(self, p):
         """Devuelve una nueva figura poniendo la figura p sobre la
         figura actual"""
-        under_self = p.img.extends(self.img)
-        
-        return under_self
+        up_picture =  self.img + p.img
+        return Picture(up_picture)
   
     def horizontalRepeat(self, n):
         """Devuelve una nueva figura repitiendo la figura actual al costado
         la cantidad de veces que indique el valor de n"""
-        return Picture(None)
+        hori_rep = self
+
+        for iterator in range(n-1):
+            hori_rep = hori_rep.join(self)
+
+        return hori_rep
 
     def verticalRepeat(self, n):
-        return Picture(None)
+        
+        vert_rep = self
+
+        for iterator in range(n-1):
+            vert_rep = vert_rep.up(self)
+
+        return vert_rep
 
     # Extra: Solo para realmente viciosos
     def rotate(self):
         """Devuelve una figura rotada en 90 grados, puede ser en sentido horario
         o antihorario"""
-        return Picture(None)
+        self_rotate = []
+        for i in range(len(self.img)):
+            row = ""
+            for j in range(len(self.img[i])):
+                row += self.img[j][i]
+            self_rotate.append(row)          
+
+        return Picture(self_rotate)
