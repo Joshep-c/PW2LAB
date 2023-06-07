@@ -2,6 +2,6 @@ from interpreter import draw
 from chessPictures import *
 
 fil = knight.join(knight.negative())
-fil2 = fil.verticalMirror()
+fil2 = knight.negative().join(knight)
 
-draw(fil.up(fil2))
+draw(fil.under(fil2))
