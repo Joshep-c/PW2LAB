@@ -8,21 +8,25 @@ def parseLine(DISPLAY, y, s):
     pygame.draw.line(DISPLAY, color[c], (x, y), (x, y))
     x += 1
 
-def draw(picture):
-  try:
-    img = picture.img
-  except:
-    img = picture
+def draw(*pictures):
   pygame.init()
-
+  
   DISPLAY=pygame.display.set_mode((640, 480))
   DISPLAY.fill(BLUE)
+  canvas = [DISPLAY]
 
-  n = len(img)
-  for i in range(0, n):
-    parseLine(DISPLAY, i, img[i])
+  for picture in pictures:
+    canva = pygame.Surface((640, 480), pygame.SRCALPHA)
+    img = picture.img
+    n = len(img)
+    for i in range(0, n):
+      parseLine(canva, i, img[i])
+    canvas.append(canva)
 
   while True:
+    for i in range(len(canvas)-1):
+      canvas[i].blit(canvas[i+1], (0,0))
+
     for event in pygame.event.get():
       if event.type==QUIT:
         pygame.quit()
