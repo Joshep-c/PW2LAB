@@ -11,7 +11,7 @@ def parseLine(DISPLAY, y, s):
 def draw(*pictures):
   pygame.init()
   
-  DISPLAY=pygame.display.set_mode((640, 480))
+  DISPLAY=pygame.display.set_mode((464, 464))
   DISPLAY.fill(BLUE)
   canvas = [DISPLAY]
 
