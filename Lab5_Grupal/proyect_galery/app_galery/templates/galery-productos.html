@@ -1,0 +1,25 @@
+<h1>Lista de Productos</h1>
+<div class="productos">
+
+  <!-- La siguiente linea de codigo ejecuta un for de python para poder ingresar la lista de productos
+      de la base de datos, gracias al diccionario ingresado por el view 'productos'-->
+
+  {% for producto in productos %}
+  <div class="producto">
+
+    <div class="contenedor_producto">
+
+      <!-- Impresion de cada uno de los atributos de los productos: nombre, descripcion y precio
+            el '| title', es como un estilo que se le agrega a ese subtitulo, no es importante-->
+      <div>
+        <h2>{{ producto.nombre | title }}</h2>
+        <h5>{{ producto.descripcion }}</h5>
+        <h3>${{ producto.precio }}</h3>
+      </div>
+      
+    </div>
+
+  </div>
+  {% endfor%}
+
+</div>
