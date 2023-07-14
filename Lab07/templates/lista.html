@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabla de Asignaturas</title>
+</head>
+<body>
+    <h1>Tabla de Asignaturas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Asignatura</th>
+                <th>Docente Encargado</th>
+                <th>Delegado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asignatura in asignaturas %}
+            <tr>
+                <td>{{ asignatura.name }}</td>
+                <td>
+                    {% for docente in asignatura.docentes.all %}
+                    {{ docente.name }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for delegado in asignatura.delegado_set.all %}
+                    {{ delegado.estudiante.name }}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

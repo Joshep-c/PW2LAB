@@ -1,10 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from .models import Asignatura
 
-from .models import Docente , Asignatura
-
-# Create your views here.
-
-def index(request):
-    list 
-    return render(request,'index.html',{'dests': dests})
-
+def tabla_asignaturas(request):
+    asignaturas = Asignatura.objects.all()
+    return render(request, 'lista.html', {'asignaturas': asignaturas})
