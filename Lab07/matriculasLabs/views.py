@@ -1,3 +1,7 @@
+# EMAIL
+
+from django.core.mail import send_mail
+
 # pdf
 
 from django.http import HttpResponse
@@ -31,3 +35,17 @@ def generar_pdf(request):
         return HttpResponse(result.getvalue(), content_type='application/pdf')
 
     return HttpResponse('Error al generar el PDF: {}'.format(pdf.err), status=500)
+
+def send_email(request):
+    asunto = 'Laboratios EPIS'
+    mensaje_obligatorio = 'Buen día'
+    correo = 'jccahuanala@unsa.edu.pe'
+
+    send_mail(
+        asunto,
+        mensaje_obligatorio,
+        correo,
+        ['joshep.antony.ccl7427@gmail.com',],
+        fail_silently=False)
+    
+    return render(request, 'email.html')
